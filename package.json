@@ -17,6 +17,7 @@
   "author": "Chumakov Andrew",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.6.3",
     "image-to-base64": "^2.2.0",
     "imagemin": "^8.0.1",
     "inquirer": "^9.2.12",

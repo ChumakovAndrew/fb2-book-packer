@@ -1,7 +1,9 @@
+import { surveyController } from "./Controllers/surveyController.mjs"
 
-
-function main() {
-
+async function main() {
+    const descriptionObj = await surveyController() // опросник 
+    
+    console.log(descriptionObj)
 }
 
 main()
