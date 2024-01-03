@@ -56,20 +56,32 @@ const surveyController = async () => {
     
     return await inquirer.prompt(questions).then(async (answers) => {
 
-        let url = answers.urlS
+        if(answers.cover){
+            if(answers.addMethod == addingMethods.URL){
+                // проверка Url
+                let url = answers.urlS
 
-        while(!isValidUrl(url)){
-            printError("Вы ввели невалидный URL адрес. Пожалуйста, проверьте ввод.")
-            const ans = await returnQuestion([{
-                type: "input",
-                name: "url",
-                message: "Введите URL адрес изображения:",
-            }])
+                while(!isValidUrl(url)){
+                    printError("Вы ввели невалидный URL адрес. Пожалуйста, проверьте ввод.")
+                    const ans = await returnQuestion([{
+                    type: "input",
+                    name: "url",
+                    message: "Введите URL адрес изображения:",
+                    }])
 
-            url = ans.url
+                    url = ans.url
+                }
+
+                return {...answers, url: url}
+
+            }else {
+                // проверка Path
+            }
         }
 
-        return {...answers, url: url}
+        
+
+        return answers
         // return JSON.stringify(answers, null, '  ')
     });
 }
