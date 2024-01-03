@@ -8,12 +8,12 @@ const returnQuestion = async (question) => {
     });
 }
 
-const surveyController = async () => {
-    const addingMethods = {
-        URL: "URL",
-        PATH: 'PATH'
-    }
+const addingMethods = {
+    URL: "URL",
+    PATH: 'PATH'
+}
 
+const surveyController = async () => {
     const questions = [
         {
             type: "input",
@@ -59,7 +59,7 @@ const surveyController = async () => {
         if(answers.cover){
             if(answers.addMethod == addingMethods.URL){
                 // проверка Url
-                let url = answers.urlS
+                let url = answers.url
 
                 while(!isValidUrl(url)){
                     printError("Вы ввели невалидный URL адрес. Пожалуйста, проверьте ввод.")
@@ -86,6 +86,6 @@ const surveyController = async () => {
     });
 }
 
-export { surveyController }
+export { surveyController, addingMethods, returnQuestion }
 
 
