@@ -19,9 +19,14 @@
   "dependencies": {
     "axios": "^1.6.3",
     "chalk": "^5.3.0",
+    "cheerio": "^1.0.0-rc.12",
+    "docxtemplater": "^3.42.7",
     "image-to-base64": "^2.2.0",
     "imagemin": "^8.0.1",
     "inquirer": "^9.2.12",
+    "mammoth": "^1.6.0",
+    "prompt-sync": "^4.2.0",
+    "xml2js": "^0.6.2",
     "xmlbuilder": "^15.1.1"
   }
 }

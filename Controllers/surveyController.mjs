@@ -48,10 +48,15 @@ const surveyController = async () => {
         },
         {
             type: "input",
-            name: "path",
+            name: "pathImg",
             message: "Введите расположение файла:",
             when: (answers) => answers.addMethod == addingMethods.PATH,
         },
+        {
+            type: "input",
+            name: "pathDocx",
+            message: "Введите расположение файла (в формате docx) с текстом книги:",
+        }
     ];
     
     return await inquirer.prompt(questions).then(async (answers) => {
