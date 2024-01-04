@@ -6,9 +6,9 @@ import { join } from "path";
 import { surveyController, addingMethods } from "./Controllers/surveyController.mjs"
 import { imgSaver } from "./Services/imgSaver.mjs"
 import { docxParser } from './Services/docxParser.mjs';
+import { xmlCrearerService } from './Services/xmlCreaterService.mjs';
 
-
-const {mkdir, rm} = promises
+const {mkdir, rm, writeFile} = promises
 
 const pathCliDir = join(homedir(), '/AppData/Local/fb2-book-packer');
 const pathDirTemp = join(pathCliDir, '/temp')
@@ -33,8 +33,12 @@ async function main() {
             destination: outputFilePath
         });
     }
+
+    const text = await docxParser(descriptionObj.pathDocx)
+
+    xmlCrearerService(descriptionObj, text)
+
     
-    await docxParser(descriptionObj.pathDocx)
     await rm(pathDirTemp, {recursive: true, force: true})
 }
 

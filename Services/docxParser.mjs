@@ -1,4 +1,5 @@
 import mammoth from 'mammoth'
+import { printError } from './logService.mjs';
 const docxParser = async (documentPath) => {
 
     const options = {
@@ -13,7 +14,8 @@ const docxParser = async (documentPath) => {
             return result.value            
         })
         .catch(error => {
-          console.error(error);
+            printError(error);
+            return
         });
 }
 
