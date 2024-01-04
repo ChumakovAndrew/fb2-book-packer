@@ -27,6 +27,7 @@
     "mammoth": "^1.6.0",
     "prompt-sync": "^4.2.0",
     "xml2js": "^0.6.2",
-    "xmlbuilder": "^15.1.1"
+    "xmlbuilder": "^15.1.1",
+    "xmlbuilder2": "^3.1.1"
   }
 }

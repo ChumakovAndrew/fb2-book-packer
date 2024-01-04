@@ -18,26 +18,28 @@ const outputFilePath = join(pathCliDir, '/Cover')
 async function main() {
 
     
-    const descriptionObj = await surveyController() // опросник
+    // const descriptionObj = await surveyController() // опросник
 
-    await mkdir(pathCliDir, { recursive: true })
+    // await mkdir(pathCliDir, { recursive: true })
 
-    if(descriptionObj.cover){
-        if(descriptionObj.addMethod == addingMethods.URL){
-            await mkdir(pathDirTemp, {recursive: true})
-            await imgSaver(descriptionObj.url, tempFilePath)
-        }else {
+    // if(descriptionObj.cover){
+    //     if(descriptionObj.addMethod == addingMethods.URL){
+    //         await mkdir(pathDirTemp, {recursive: true})
+    //         await imgSaver(descriptionObj.url, tempFilePath)
+    //     }else {
 
-        }
-        await imagemin([tempFilePath], { // оптимизация сораненной картинки
-            destination: outputFilePath
-        });
-    }
+    //     }
+    //     await imagemin([tempFilePath], { // оптимизация сораненной картинки
+    //         destination: outputFilePath
+    //     });
+    // }
+    const text = await docxParser()
 
-    const text = await docxParser(descriptionObj.pathDocx)
+    console.log(text)
 
-    xmlCrearerService(descriptionObj, text)
+    const xmlCode = await xmlCrearerService('hello', text)
 
+    await writeFile(`myfile.fb2`, xmlCode)
     
     await rm(pathDirTemp, {recursive: true, force: true})
 }
