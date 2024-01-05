@@ -1,6 +1,6 @@
 import { create } from "xmlbuilder"
 
-const xmlCrearerService = async (description, content) => {
+const xmlCrearerService = async (description, content, img) => {
   const obj = {
     FictionBook: {
       description: {
@@ -15,7 +15,7 @@ const xmlCrearerService = async (description, content) => {
           },
           coverpage: {
             image: {
-              '@l:href': '#cover.jpg',
+              '@l:href': `#cover.jpg`, // Embed base64-encoded image in XML
             },
           },
           'book-title': 'Атомные привычки. Как приобрести хорошие привычки и избавиться от плохих',
@@ -31,7 +31,13 @@ const xmlCrearerService = async (description, content) => {
           'program-used': '2.6.6'
         },
       },
-      body:{}
+      body:{},
+      binary: {
+        '@id': 'cover.jpg',
+        '@content-type': 'image/jpeg',
+        '#text': img, // Add the base64-encoded image data as text content
+      },
+    
     },
     
   };

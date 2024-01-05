@@ -7,6 +7,7 @@ import { surveyController, addingMethods } from "./Controllers/surveyController.
 import { imgSaver } from "./Services/imgSaver.mjs"
 import { docxParser } from './Services/docxParser.mjs';
 import { xmlCrearerService } from './Services/xmlCreaterService.mjs';
+import { imageToBase64Service } from './Services/ImgToBase64Service.mjs';
 
 const {mkdir, rm, writeFile} = promises
 
@@ -16,30 +17,29 @@ const tempFilePath = join(pathCliDir, 'temp/img.jpg')
 const outputFilePath = join(pathCliDir, '/Cover')
 
 async function main() {
+    const descriptionObj = await surveyController() // опросник
 
-    
-    // const descriptionObj = await surveyController() // опросник
+    await mkdir(pathCliDir, { recursive: true })
 
-    // await mkdir(pathCliDir, { recursive: true })
+    if(descriptionObj.cover){
+        if(descriptionObj.addMethod == addingMethods.URL){
+            await mkdir(pathDirTemp, {recursive: true})
+            await imgSaver(descriptionObj.url, tempFilePath)
+        }else {
 
-    // if(descriptionObj.cover){
-    //     if(descriptionObj.addMethod == addingMethods.URL){
-    //         await mkdir(pathDirTemp, {recursive: true})
-    //         await imgSaver(descriptionObj.url, tempFilePath)
-    //     }else {
+        }
+        await imagemin([tempFilePath], { // оптимизация сораненной картинки
+            destination: outputFilePath
+        });
+    }
 
-    //     }
-    //     await imagemin([tempFilePath], { // оптимизация сораненной картинки
-    //         destination: outputFilePath
-    //     });
-    // }
-    const text = await docxParser()
+    const imgBase64 = await imageToBase64Service(`${pathCliDir}/Cover/img.jpg`)
 
-    console.log(text)
+    const text = await docxParser(descriptionObj.pathDocx)
 
-    const xmlCode = await xmlCrearerService('hello', text)
+    const xmlCode = await xmlCrearerService('hello', text, imgBase64)
 
-    await writeFile(`myfile.fb2`, xmlCode)
+    await writeFile(`${pathCliDir}/file.fb2`, xmlCode)
     
     await rm(pathDirTemp, {recursive: true, force: true})
 }
