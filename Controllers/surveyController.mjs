@@ -28,6 +28,18 @@ const surveyController = async () => {
             default: undefined,
         },
         {
+            type: "input",
+            name: "annotation",
+            message: "Напишите аннотацию к данной книге:",
+            default: undefined,
+        },
+        {
+            type: "list",
+            name: "lang",
+            message: "На каком языке написана книга?",
+            choices: ["uk", "ru", "en"],
+        },
+        {
             type: "confirm",
             name: "cover",
             message: "Хотите добавить обложку?",

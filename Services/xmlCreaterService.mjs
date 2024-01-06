@@ -1,34 +1,39 @@
 import { create } from "xmlbuilder"
 
 const xmlCrearerService = async (description, content, img) => {
+
+console.log(content)
+
+const {
+  name,
+  author,
+  annotation,
+  lang,
+} = description
+
   const obj = {
     FictionBook: {
       description: {
         'title-info': {
           author: {
-            'first-name': description,
-            'last-name': 'Клир',
-          },
-          date: {
-            '@value': '2018-01-01',
-            _: '2018',
+            'first-name': author,
+            // 'last-name': 'Клир',
           },
           coverpage: {
             image: {
               '@l:href': `#cover.jpg`, // Embed base64-encoded image in XML
             },
           },
-          'book-title': 'Атомные привычки. Как приобрести хорошие привычки и избавиться от плохих',
+          'book-title': name,
           annotation: {
-            p: 'Может ли одна монетка сделать человека богатым? ...',
+            p: annotation,
           },
-          lang: 'ru'
+          lang
         },
         'document-info': {
           author: {
             nickname: '',
           },
-          'program-used': '2.6.6'
         },
       },
       body:{},
@@ -43,6 +48,8 @@ const xmlCrearerService = async (description, content, img) => {
   };
   
   const doc = create(obj)
+
+  console.log(content)
 
   await content.forEach((element, idSection) => {
     const { title, text } = element.section;
